@@ -8,9 +8,8 @@ from cloudmesh.common.debug import VERBOSE
 from cloudmesh.shell.command import map_parameters
 import os
 from pathlib import Path
-from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
-from cloudmesh.secchi.tensorflow.preprocessing.xml_to_csv import XmlToCSV
-from cloudmesh.secchi.tensorflow.preprocessing.generate_tfrecord import GenTF
+
+
 
 # from.cloudmesh.secchi.tensorflow.predict import predict
 #from src.predict import Predict
@@ -72,6 +71,7 @@ class SecchiCommand(PluginCommand):
 
         VERBOSE(arguments)
 
+        file_size = 500
         if arguments.upload and arguments.training:
             # upload training image set to training folder
             print ("training")
@@ -83,8 +83,8 @@ class SecchiCommand(PluginCommand):
             # upload video file in for prediction.
             file = path_expand(arguments.FILE)
             size = os.path.getsize(file)/(1024*1024)
-            if size > 100:
-                print("Size limit 100MB exceeds. End upload")
+            if size > file_size:
+                print(f"Size limit {file_size}MB exceeds. End upload")
             # validate extension:
             else:
                 v = Video()
@@ -92,6 +92,11 @@ class SecchiCommand(PluginCommand):
                     # valid format
                     print("format is valid")
                     v.upload(file)
+                    print("File uploaded successfully")
+
+                else:
+                    print("File format is not valid")
+
 
         elif arguments.captureImage:
             print("capture image from videos for training purpose")
@@ -127,8 +132,9 @@ class SecchiCommand(PluginCommand):
         
         elif arguments.show and arguments.graph:
             p = Path(os.path.abspath(__file__))
-            path = p.parent.parent
-            file = os.path.join(path, 'tensorflow','sacchi.png')
+            path = p.parent.parent.parent.parent
+            print(path)
+            file = os.path.join(path,'secchi.png')
             
             #fileObject = open(file, 'r')
             if os.path.exists(file):
@@ -137,11 +143,13 @@ class SecchiCommand(PluginCommand):
               print("File doesn't exists")
 # Code for partitioning dataset. 10-19
         elif arguments.partitiondataset and arguments.delete:
+            from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
 
             pd = PartitionDataset()
             pd.delete()
 
         elif arguments.create and arguments.partitiondataset:
+            from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
 
             inputDir = path_expand(arguments.INPUTDIR)
             if arguments.ratio:
@@ -153,6 +161,8 @@ class SecchiCommand(PluginCommand):
             pd.run()
 
         elif arguments.prep and arguments.training:
+            from cloudmesh.secchi.tensorflow.preprocessing.xml_to_csv import XmlToCSV
+            from cloudmesh.secchi.tensorflow.preprocessing.generate_tfrecord import GenTF
             # converts img xml to csv
             xtc = XmlToCSV()
             xtc.xml_csv_conv()

@@ -145,12 +145,13 @@ class Predict:
                 line_thickness=8,
                 min_score_thresh=0.60)
 
-            self.overlay_text(str(f"file:{self.VIDEO_NAME}"), frame, (1600, 950), 1)
-            self.overlay_text(str(f"time: {round(time_stamp/1000,2)}s"),frame,(1600,1000),1)
+            self.overlay_text(str(f"file:{self.VIDEO_NAME}"), frame, (100, 50), 1)
+            self.overlay_text(str(f"time: {round(time_stamp/1000,2)}s"),frame,(100,100),1)
             #cv2.putText(frame,str(f"TimeStamp: {round(time_stamp/1000,2)}s"),(1600,1000),cv2.FONT_HERSHEY_PLAIN,1,(0,140,255),3)
-            resize = cv2.resize(frame, None, fx=self.scaling_factorx, fy=self.scaling_factory, interpolation=cv2.INTER_AREA)
+            #resize = cv2.resize(frame, None, fx=self.scaling_factorx, fy=self.scaling_factory, interpolation=cv2.INTER_AREA)
+            resize = cv2.resize(frame, (2000,1800), interpolation=cv2.INTER_AREA)
             # All the results have been drawn on the frame, so it's time to display it.
-            cv2.imshow('Object detector', resize)
+            cv2.imshow('Object detector', frame)
             # Code for variable used in plot.
             self.SCORES.append(scores[0][0])
             self.TIME_STAMP.append(round(time_stamp/1000, 1))
@@ -187,7 +188,8 @@ class Predict:
             print("File Exists: Deleting....")
             os.remove("sacchi.png")
             print(os.path.isfile("sacchi.png"))
-        fig.savefig('sacchi.png', transparent=False, dpi=80, bbox_inches="tight")
+        
+        fig.savefig('secchi.png', transparent=False, dpi=80, bbox_inches="tight")
         #     delete file
         #     dave file
         print("File Saved")

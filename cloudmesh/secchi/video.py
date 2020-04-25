@@ -11,7 +11,7 @@ class Video:
 #Video.__filename__
 # directory = os.path.dirname(Vido.__filename__
 
-    valid_extn = ["mp4", "avi"]
+    valid_extn = ["MP4", "AVI"]
 
     def __init__(self, dest="~/.cloudmesh/secchi"):
         # if none put it
@@ -112,7 +112,7 @@ class Video:
         if str == 'predict':
 
             extn = filename.split(".")[1]
-            if extn in self.valid_extn:
+            if extn.upper() in self.valid_extn:
                 return True
             else:
                 return False
