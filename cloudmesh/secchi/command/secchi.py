@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 
 
+
 class SecchiCommand(PluginCommand):
 
     # noinspection PyUnusedLocal
@@ -25,7 +26,8 @@ class SecchiCommand(PluginCommand):
                 secchi server start
                 secchi server stop
                 secchi server status
-                secchi run [--predict] [--training]
+                secchi run [--setup] [--predict] [--training]
+
                 secchi remove [VIDEO][--training][--validate][--predict]
                 secchi show graph
                 secchi create partitiondataset [INPUTDIR] [--ratio=0.2]
@@ -59,9 +61,12 @@ class SecchiCommand(PluginCommand):
                        'training',
                        'validate',
                        'predict',
-                       'ratio')
+                       'ratio',
+                       'steps',
+                       'setup')
 
         VERBOSE(arguments)
+
 
         file_size = 500
         if arguments.upload and arguments.training:
@@ -69,6 +74,7 @@ class SecchiCommand(PluginCommand):
             print("training")
 
         elif arguments.upload and arguments.predict:
+
             # validate extension and file size. Max size=125 MB
             # upload video file in for prediction.
             file = path_expand(arguments.FILE)
@@ -97,6 +103,14 @@ class SecchiCommand(PluginCommand):
             elif arguments.validate:
                 print("list all validation images")
 
+        elif arguments.run and arguments.setup:
+            import cloudmesh.secchi.secchi_util as util
+
+            url = 'https://github.com/tensorflow/models/archive/r1.13.0.zip'
+            print("run setup")
+            util.download(url)
+            #util.install()
+
         elif arguments.run and arguments.predict:
             from cloudmesh.secchi.tensorflow.predict import Predict
 
@@ -110,7 +124,23 @@ class SecchiCommand(PluginCommand):
                 p.plot()
 
         elif arguments.run and arguments.training:
+            from cloudmesh.secchi.tensorflow.model_main import train_run
             print("run training")
+
+            # if arguments.steps:
+            #     #t = Train(arguments.steps)
+            #     train_run()
+            # else:
+            #     #t = Train()
+            #     train_run()
+            #     print("Inside run and training condition")
+            #tf.app.run(t.main())
+            #t.main()
+            p = Path(os.path.abspath(__file__))
+            path = p.parent.parent
+            train_file = os.path.join(path, 'tensorflow', 'model_main.py')
+            str = f'python {train_file} --alsologtostderr'
+            os.system(str)
 
         elif arguments.remove and arguments.predict:
             print("Delete uploaded file")
@@ -127,18 +157,20 @@ class SecchiCommand(PluginCommand):
             if os.path.exists(file):
                 os.system(file)
             else:
+              print("File doesn't exists")
+        # Code for partitioning dataset. 10-19
+        elif arguments.partitiondataset and arguments.delete:
+            from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
                 print("File doesn't exists")
 
         # Code for partitioning dataset. 10-19
         elif arguments.partitiondataset and arguments.delete:
             from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
-
             pd = PartitionDataset()
             pd.delete()
 
         elif arguments.create and arguments.partitiondataset:
             from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
-
             inputDir = path_expand(arguments.INPUTDIR)
             if arguments.ratio:
                 ratio = float(arguments.ratio)

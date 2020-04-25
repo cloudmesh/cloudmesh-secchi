@@ -22,12 +22,12 @@ class GenTF():
     def __init__(self, str):
 
         if str == 'train':
-            self.csv_input = os.path.join(path_expand('~/.cloudmesh/secchi/TFrecord'), 'train_labels.csv')
+            self.csv_input = os.path.join(path_expand('~/.cloudmesh/secchi/annotations'), 'train_labels.csv')
         else:
-            self.csv_input = os.path.join(path_expand('~/.cloudmesh/secchi/TFrecord'), 'test_labels.csv')
+            self.csv_input = os.path.join(path_expand('~/.cloudmesh/secchi/annotations'), 'test_labels.csv')
 
         self.img_path = os.path.join(path_expand('~/.cloudmesh/secchi/images'), str)
-        self.output_path = os.path.join(path_expand('~/.cloudmesh/secchi/TFrecord'), f"{str}.record")
+        self.output_path = os.path.join(path_expand('~/.cloudmesh/secchi/annotations'), f"{str}.record")
 
         self.label = 'disc'
 
