@@ -10,11 +10,6 @@ import os
 from pathlib import Path
 
 
-
-# from.cloudmesh.secchi.tensorflow.predict import predict
-#from src.predict import Predict
-
-
 class SecchiCommand(PluginCommand):
 
     # noinspection PyUnusedLocal
@@ -30,9 +25,6 @@ class SecchiCommand(PluginCommand):
                 secchi server start
                 secchi server stop
                 secchi server status
-                secchi labelImg install
-                secchi labelImg run
-                secchi captureImage
                 secchi run [--predict] [--training]
                 secchi remove [VIDEO][--training][--validate][--predict]
                 secchi show graph
@@ -74,21 +66,21 @@ class SecchiCommand(PluginCommand):
         file_size = 500
         if arguments.upload and arguments.training:
             # upload training image set to training folder
-            print ("training")
-        elif arguments.upload and arguments.validate:
-            # upload validation image set to validation folder
-            print("validation")
+            print("training")
+
         elif arguments.upload and arguments.predict:
             # validate extension and file size. Max size=125 MB
             # upload video file in for prediction.
             file = path_expand(arguments.FILE)
-            size = os.path.getsize(file)/(1024*1024)
+            size = os.path.getsize(file) / (1024 * 1024)
             if size > file_size:
                 print(f"Size limit {file_size}MB exceeds. End upload")
+
             # validate extension:
             else:
                 v = Video()
-                if(v.validateFileFormat(file,'predict')):
+
+                if(v.validateFileFormat(file, 'predict')):
                     # valid format
                     print("format is valid")
                     v.upload(file)
@@ -96,10 +88,6 @@ class SecchiCommand(PluginCommand):
 
                 else:
                     print("File format is not valid")
-
-
-        elif arguments.captureImage:
-            print("capture image from videos for training purpose")
 
         elif arguments["list"] and arguments.input:
             if arguments.predict:
@@ -123,25 +111,25 @@ class SecchiCommand(PluginCommand):
 
         elif arguments.run and arguments.training:
             print("run training")
-  
+
         elif arguments.remove and arguments.predict:
             print("Delete uploaded file")
             video = arguments.FILE
             v = Video()
             v.removeFile(video)
-        
+
         elif arguments.show and arguments.graph:
             p = Path(os.path.abspath(__file__))
             path = p.parent.parent.parent.parent
             print(path)
-            file = os.path.join(path,'secchi.png')
-            
-            #fileObject = open(file, 'r')
+            file = os.path.join(path, 'secchi.png')
+
             if os.path.exists(file):
-              os.system(file)
+                os.system(file)
             else:
-              print("File doesn't exists")
-# Code for partitioning dataset. 10-19
+                print("File doesn't exists")
+
+        # Code for partitioning dataset. 10-19
         elif arguments.partitiondataset and arguments.delete:
             from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
 
@@ -172,7 +160,4 @@ class SecchiCommand(PluginCommand):
             gtf_test = GenTF('test')
             gtf_test.create()
 
-
         return ""
-
-
