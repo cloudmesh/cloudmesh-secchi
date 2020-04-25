@@ -15,8 +15,10 @@
 Activate python virtual environment before installation.
 
 ```
-pip install --ignore-installed --upgrade tensorflow==1.14
-pip install pillow, lxml, matplotlib, opencv-python, cython
+pip install cloudmesh-cmd5
+pip install cloudmesh-sys
+cms sys command generate secchi
+git pull https://github.com/cloudmesh/cloudmesh-secchi.git
 
 ```
 
