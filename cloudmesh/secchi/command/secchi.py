@@ -10,7 +10,6 @@ import os
 from pathlib import Path
 
 
-
 class SecchiCommand(PluginCommand):
 
     # noinspection PyUnusedLocal
@@ -67,7 +66,6 @@ class SecchiCommand(PluginCommand):
 
         VERBOSE(arguments)
 
-
         file_size = 500
         if arguments.upload and arguments.training:
             # upload training image set to training folder
@@ -106,10 +104,18 @@ class SecchiCommand(PluginCommand):
         elif arguments.run and arguments.setup:
             import cloudmesh.secchi.secchi_util as util
 
-            url = 'https://github.com/tensorflow/models/archive/r1.13.0.zip'
+            url_model = 'https://github.com/tensorflow/models/archive/r1.13.0.zip'
+            url_protobuf = "https://github.com/protocolbuffers/protobuf/releases/download/v3.11.4/protoc-3.11.4-linux-x86_64.zip"
             print("run setup")
-            util.download(url)
-            #util.install()
+
+            # Downlaod Model utilities
+            util.download(url_model, 'model')
+            util.rename('models', 'model')
+
+            #
+            util.download(url_protobuf, 'Proto', new_dir='Protobuf')
+            util.rename('protoc-', 'Protobuf')
+            util.install()
 
         elif arguments.run and arguments.predict:
             from cloudmesh.secchi.tensorflow.predict import Predict
@@ -134,8 +140,8 @@ class SecchiCommand(PluginCommand):
             #     #t = Train()
             #     train_run()
             #     print("Inside run and training condition")
-            #tf.app.run(t.main())
-            #t.main()
+            # tf.app.run(t.main())
+            # t.main()
             p = Path(os.path.abspath(__file__))
             path = p.parent.parent
             train_file = os.path.join(path, 'tensorflow', 'model_main.py')
@@ -157,11 +163,11 @@ class SecchiCommand(PluginCommand):
             if os.path.exists(file):
                 os.system(file)
             else:
-              print("File doesn't exists")
+                print("File doesn't exists")
         # Code for partitioning dataset. 10-19
         elif arguments.partitiondataset and arguments.delete:
             from cloudmesh.secchi.tensorflow.preprocessing.partition_dataset import PartitionDataset
-                print("File doesn't exists")
+            print("File doesn't exists")
 
         # Code for partitioning dataset. 10-19
         elif arguments.partitiondataset and arguments.delete:
