@@ -1,4 +1,4 @@
-![TensorFlow 2 Not Supported](https://img.shields.io/badge/TensorFlow%202%20Not%20Supported-%E2%9C%95-red.svg)
+![TensorFlow 2 Not Supported](https://img.shields.io/badge/TensorFlow%20Requirement-2.0-brightgreen)
 # Objective
 
 This is trained model to identify a secchi disk from a given video. This model 
@@ -137,6 +137,6 @@ This graph is saved under root folder as 'secchi.png'.
 
 Example of prediction video and graph is shown:
 
-![Output Graph](image/mygraph.png) 
+![Output Graph](image/secchigraph.png) 
 
 ![Predictor Output Image](image/Predictor_Image.png)
