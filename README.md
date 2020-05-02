@@ -66,8 +66,7 @@ Run these commands to install cloudmesh-seechi
 ```
 pip install cloudmesh-cmd5
 pip install cloudmesh-sys
-cms sys command generate secchi
-git pull https://github.com/cloudmesh/cloudmesh-secchi.git
+git clone https://github.com/cloudmesh/cloudmesh-secchi.git
 cd cloudmesh-secchi
 pip install -e .
 
@@ -106,6 +105,8 @@ To quit video, press 'q'
 cms secchi show graph
 
 ```
+
+This graph is saved under root folder as 'secchi.png'.
 
 #### To Delete Video From Project Upload
 
