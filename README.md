@@ -1,4 +1,6 @@
 ![TensorFlow 2 Not Supported](https://img.shields.io/badge/TensorFlow%20Requirement-2.0-brightgreen)
+[Python 3.6](https://img.shields.io/badge/Python-v3.6-brightgreen)
+
 # Objective
 
 This is trained model to identify a secchi disk from a given video. This model 
