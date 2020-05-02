@@ -164,9 +164,24 @@ class SecchiCommand(PluginCommand):
 
                 else:    
                     p = Predict(file)
-                    
+
                 p.run()
                 p.plot()
+                print("********************")
+                print("Suggested command:")
+                print(
+                    """
+                    To adjust frame size use predict command :                     
+                    cms secchi run --predict --resize=0.5
+                    """)
+
+                print(
+                    """
+                    To view graph run command :                     
+                    cms secchi show graph
+                    """)
+
+
             else:
                 Console.error("No Video file found.")    
                 print("")
