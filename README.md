@@ -3,7 +3,7 @@
 This is trained model to identify a secchi disk from a given video. This model 
 is built on Tensorflow 2.0 using python version 3.6.9.
 
-This program takes a video <valid format> as in input and detects secchi disc.
+This program takes a video im MP4 or AVI format as in input and detects secchi disc.
 It generates an image file 'secchi.png' to mark image detection frame by frame. 
 
 ## Prerequisite
@@ -106,6 +106,14 @@ To quit video, press 'q'
 cms secchi show graph
 
 ```
+
+#### To Delete Video From Project Upload
+
+```
+cms secchi remove --predict
+
+```
+
 
 #### Predict Screen and Graph
 
