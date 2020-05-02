@@ -129,7 +129,7 @@ class Video:
         files = os.listdir(self.dest)
 
         for file in files:
-            extn = file.split(".")[-1]
+            extn = file.split(".")[-1].upper()
             if extn in self.valid_extn:
                 print(file)
                 return file
@@ -143,7 +143,7 @@ class Video:
             #remove all video file
             files = os.listdir(self.dest)
             for file in files:
-                extn = file.split('.')[-1]
+                extn = file.split('.')[-1].upper()
                 if extn in self.valid_extn:
                     os.remove(os.path.join(self.dest, file))
         else:
@@ -152,8 +152,9 @@ class Video:
     def listsVideo(self):
 
         os.chdir(self.dest)
-        for file in glob.glob("*.mp4"):
-            print(file)
+        for extn in self.valid_extn:
+            for file in glob.glob(f"*.{extn}"):
+                print(file)
 
 
 if __name__== "__main__":

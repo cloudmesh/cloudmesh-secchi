@@ -60,14 +60,15 @@ class Predict:
 
     # Number of classes the object detector can identify
     NUM_CLASSES = 1
-    scaling_factorx = 0.5
-    scaling_factory = 0.5
+    #scaling_factorx = 0.5
+    #scaling_factory = 0.5
     SCORES = []
     COUNTER = 0
     TIME_STAMP = []
 
-    def __init__(self, video):
+    def __init__(self, video, resize_scale=1):
         self.VIDEO_NAME = video
+        self.scale = resize_scale
 
     def run(self):
         # Load the label map.
@@ -147,11 +148,19 @@ class Predict:
 
             self.overlay_text(str(f"file:{self.VIDEO_NAME}"), frame, (100, 50), 1)
             self.overlay_text(str(f"time: {round(time_stamp/1000,2)}s"),frame,(100,100),1)
+            self.overlay_text(str(f"Press q to exit"), frame, (800,50),1)
             #cv2.putText(frame,str(f"TimeStamp: {round(time_stamp/1000,2)}s"),(1600,1000),cv2.FONT_HERSHEY_PLAIN,1,(0,140,255),3)
-            #resize = cv2.resize(frame, None, fx=self.scaling_factorx, fy=self.scaling_factory, interpolation=cv2.INTER_AREA)
-            resize = cv2.resize(frame, (2000,1800), interpolation=cv2.INTER_AREA)
+            
+            if self.scale ==1:
+                resize = cv2.resize(frame, (2000,1800), interpolation=cv2.INTER_AREA)
+            else:
+                scaling_factorx = self.scale
+                scaling_factory = self.scale
+                resize = cv2.resize(frame, None, fx=scaling_factorx, fy=scaling_factory, interpolation=cv2.INTER_AREA)
+            
             # All the results have been drawn on the frame, so it's time to display it.
-            cv2.imshow('Object detector', frame)
+            # cv2.imshow('Object detector', frame)
+            cv2.imshow('Object detector', resize)
             # Code for variable used in plot.
             self.SCORES.append(scores[0][0])
             self.TIME_STAMP.append(round(time_stamp/1000, 1))
