@@ -1,5 +1,5 @@
 ![TensorFlow 2 Not Supported](https://img.shields.io/badge/TensorFlow%20Requirement-2.0-brightgreen)
-![Python 3.6](https://img.shields.io/badge/python-3.6-brightgreen.svg)
+![Python 3.6](https://img.shields.io/badge/Python-3.6-brightgreen.svg)
 
 # Objective
 
@@ -11,7 +11,7 @@ It generates an image file 'secchi.png' to mark image detection frame by frame.
 
 ## Prerequisite
 
-python 3.6.9
+Python 3.6.9
 
 ## Installation
 
