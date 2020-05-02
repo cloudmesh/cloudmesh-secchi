@@ -83,11 +83,20 @@ cms secchi help
 
 ### Commands To Run Prediction
 
+#### Upload and delete video file through cms command. Max file size is 500MB.
 
-#### Upload video file through cms command
+This is the file on which prediction would run.
+
+For upload, run command
 
 ```
 cms secchi upload '~/Desktop/file.mp4' --predict
+```
+
+For delete, run command 
+
+```
+cms secchi remove --predict
 ```
 
 #### Run predict through cms command
@@ -96,24 +105,21 @@ cms secchi upload '~/Desktop/file.mp4' --predict
 cms secchi run --predict
 ```
 
+To resize image frame, use [--resize] option.
+
+```
+cms secchi run --predict --resize=0.5
+```
+
 To quit video, press 'q'
 
 #### Get the graph output
 
 ```
-
 cms secchi show graph
-
 ```
 
 This graph is saved under root folder as 'secchi.png'.
-
-#### To Delete Video From Project Upload
-
-```
-cms secchi remove --predict
-
-```
 
 
 #### Predict Screen and Graph
