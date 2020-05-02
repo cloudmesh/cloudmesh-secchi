@@ -87,13 +87,23 @@ cms secchi help
 
 This is the file on which prediction would run.
 
-For upload, run command
+* For upload, run command
 
 ```
 cms secchi upload '~/Desktop/file.mp4' --predict
 ```
 
-For delete, run command 
+This command fails if filesize of video is more than 500MB. 
+If fails, [--setfilelimit=100] can be used to increase file size limit and upload
+video.
+
+```
+# To increase file size limit to 800MB
+cms secchi upload '~/Desktop/file.mp4' --predict --setfilelimit=800
+
+``` 
+
+* For delete, run command 
 
 ```
 cms secchi remove --predict

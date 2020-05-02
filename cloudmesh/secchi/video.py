@@ -19,7 +19,7 @@ class Video:
         self.dest = path_expand(dest)
         # dir_path = os.path.dirname(path)
         Shell.mkdir(dest)
-        print("dest Path:", self.dest)
+        # print("dest Path:", self.dest)
 
     def train(self, video):
 
@@ -31,13 +31,15 @@ class Video:
     def analyse(self):
         raise NotImplementedError
 
+    def getValidFormat(self):
+        return self.valid_extn
 
     def upload(self, filepath=None, kind="analyse"):
         file = os.path.basename(filepath)
         try:
             shutil.copy(filepath, self.dest)
-        except NotImplementedError:
-            print("Error uploading file")
+        except FileNotFoundError:
+            print("File is not found")
 
     def list(self, name=None):
         # lists videos and tells us info about them in json format
@@ -134,7 +136,7 @@ class Video:
                 print(file)
                 return file
 
-        print("No video file exists")
+        #print("No video file exists")
         return None
 
     def removeFile(self,file=None):
@@ -146,8 +148,10 @@ class Video:
                 extn = file.split('.')[-1].upper()
                 if extn in self.valid_extn:
                     os.remove(os.path.join(self.dest, file))
+                    print(f"{file} is removed")
         else:
             os.remove(os.path.join(self.dest,file))
+            print(f"{file} is removed.")
 
     def listsVideo(self):
 

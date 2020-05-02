@@ -3,9 +3,11 @@ from __future__ import print_function
 from cloudmesh.shell.command import command
 from cloudmesh.shell.command import PluginCommand
 from cloudmesh.secchi.video import Video
-from cloudmesh.common.util import path_expand
+from cloudmesh.common.util import path_expand, banner
 from cloudmesh.common.debug import VERBOSE
 from cloudmesh.shell.command import map_parameters
+from cloudmesh.common.console import Console
+
 import os
 from pathlib import Path
 
@@ -19,7 +21,7 @@ class SecchiCommand(PluginCommand):
         ::
 
           Usage:
-                secchi upload [FILE] [--training] [--validate] [--predict]
+                secchi upload [FILE] [--training] [--validate] [--predict][--setfilelimit=100]
                 secchi run [--setup] [--predict] [--training][--resize=0.5]
                 secchi remove [VIDEO][--training][--validate][--predict]
                 secchi show graph 
@@ -27,6 +29,7 @@ class SecchiCommand(PluginCommand):
                 secchi create partitiondataset [INPUTDIR] [--ratio=0.2]
                 secchi delete partitiondataset
                 secchi prep --training
+                secchi set [--predict] [--filesize=100]
 
           This command does some useful things.
 
@@ -50,6 +53,7 @@ class SecchiCommand(PluginCommand):
         # command examples:
         #   cms secchi upload '~\Desktop\Yi-Site1.mp4' --predict
         #   cms secchi remove --predict
+        #   cms secchi list file --predict
         #   cms secchi run --predict
         #   cms secchi run --predict --resize=0.5
         #   cms secchi show graph
@@ -60,6 +64,7 @@ class SecchiCommand(PluginCommand):
                        'predict',
                        'ratio',
                        'resize',
+                       'setfilelimit',
                        'steps',
                        'setup')
 
@@ -69,70 +74,127 @@ class SecchiCommand(PluginCommand):
         #           MODEL PREDICTION CODE                          #
         ############################################################
 
-        file_size = 500
+        #file_size = 500
         
         if arguments.upload and arguments.predict:
 
             # validate extension and file size. Max size=125 MB
             # upload video file in for prediction.
+            banner("Upload file for prediction")
             file = path_expand(arguments.FILE)
-            size = os.path.getsize(file) / (1024 * 1024)
-            if size > file_size:
-                print(f"Size limit {file_size}MB exceeds. End upload")
-
-            # validate extension:
+            if arguments.setfilelimit:
+                file_size = int(arguments.setfilelimit)
             else:
-                v = Video()
+                file_size = 500 # Default size limit
 
-                if(v.validateFileFormat(file, 'predict')):
-                    # valid format
-                    print("format is valid")
-                    v.upload(file)
-                    print("File uploaded successfully")
+            try:
+                size = os.path.getsize(file) / (1024 * 1024)
 
+                if size > file_size:
+                    
+                    Console.error(f"Size limit {file_size}MB exceeds. End upload")
+                    print("")
+                    print("********************")
+                    print("Suggested command:")
+                    print(
+                        """
+                        Default size limit is 500MB.To increase file size limit, run: 
+                        
+                        cms secchi upload --predict --setfilelimit=800
+
+                        This command will set file size - 800MB.
+                        """
+                        )
+                # validate extension:
                 else:
-                    print("File format is not valid")
+                    v = Video()
+
+                    if(v.validateFileFormat(file, 'predict')):
+                        # valid format
+                        print("format is valid")
+                        v.upload(file)
+                        print("File uploaded successfully")
+                        print("")
+                        print("********************")
+                        print("Suggested command:")
+                        print(
+                            """
+                            To run prediction: command - 
+                            cms secchi run --predict
+                            """)
+                        print(
+                            """To remove uploaded file: command - 
+                            cms secchi remove --predict
+                            """)
+
+                    else:
+                        Console.error("File format is not valid.")
+                        v = Video()
+                        formats = v.getValidFormat()
+                        print(f"Valid formats: {formats}")
+
+
+            except FileNotFoundError:
+                Console.error(f"File is not found at {file}. Please validate and try again.")
+
 
         elif arguments.list and arguments.file:
             if arguments.predict:
-                print("list all input video")
+                banner("List all uploaded file for prediction")
                 v = Video()
                 v.listsVideo()
             elif arguments.training:
-                print("List all training images")
+                banner("List all uploaded file for training")
+            
             elif arguments.validate:
-                print("list all validation images")
-
-
+                banner("List all uploaded file for validation")
 
         elif arguments.run and arguments.predict:
-            from cloudmesh.secchi.tensorflow.predict import Predict
-
-            print("run prediction")
+            
+            banner("Run Prediction")
             # check if video file exists in src location
             v = Video()
             file = v.getVideoFile()
             
-            resize_scale = float(arguments.resize)
-            
             if(file is not None):
-                
-                if resize_scale:
-                    p = Predict(file, resize_scale)        
+                from cloudmesh.secchi.tensorflow.predict import Predict
+                if arguments.resize:            
+                    resize_scale = float(arguments.resize)
+                    p = Predict(file, resize_scale)
+
                 else:    
                     p = Predict(file)
+                    
                 p.run()
                 p.plot()
+            else:
+                Console.error("No Video file found.")    
+                print("")
+                print("********************")
+                print("Suggested command:")
+                print(
+                    """
+                    To upload file for prediction: run -                    
+                    cms secchi upload '~/Desktop/file.mp4' --predict
+                    """)
 
-        
         elif arguments.remove and arguments.predict:
-            print("Delete uploaded file")
+            banner("Delete uploaded file for prediction")
             video = arguments.FILE
             v = Video()
             v.removeFile(video)
-
+            print("")
+            print("********************")
+            print("Suggested command:")
+            print(
+                """
+                To upload file for prediction: run command - 
+                cms secchi upload '~/Desktop/file.mp4' --predict
+                """)
 
         elif arguments.show and arguments.graph:
+            banner("Displaying graph")
+
             p = Path(os.path.abspath(__file__))
             path = p.parent.parent.parent.parent
             print(path)
@@ -142,10 +204,12 @@ class SecchiCommand(PluginCommand):
                 os.system(file)
             else:
                 print("File doesn't exists")
-        
+              
+
         ############################################################
         #           MODEL TRAINING CODE                            #
         ############################################################
+        
         elif arguments.upload and arguments.training:
             # upload training image set to training folder
             print("training")
