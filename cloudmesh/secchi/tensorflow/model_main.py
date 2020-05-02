@@ -56,7 +56,7 @@ flags.DEFINE_boolean(
 FLAGS = flags.FLAGS
 
 def train_run():
-    tf.app.run()
+    tf.compat.v1.app.run()
 
 def main(unused_argv):
     FLAGS.model_dir = '~/.cloudmesh/secchi/training'
@@ -110,4 +110,4 @@ def main(unused_argv):
 
 
 if __name__ == '__main__':
-  tf.app.run()
+  tf.compat.v1.app.run()

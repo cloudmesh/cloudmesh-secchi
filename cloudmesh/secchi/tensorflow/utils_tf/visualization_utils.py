@@ -106,7 +106,7 @@ def save_image_array_as_png(image, output_path):
     output_path: path to which image should be written.
   """
   image_pil = Image.fromarray(np.uint8(image)).convert('RGB')
-  with tf.gfile.Open(output_path, 'w') as fid:
+  with tf.io.gfile.GFile(output_path, 'w') as fid:
     image_pil.save(fid, 'PNG')
 
 
@@ -395,11 +395,10 @@ def create_visualization_fn(category_index, include_masks=False,
 
 def _resize_original_image(image, image_shape):
   image = tf.expand_dims(image, 0)
-  image = tf.image.resize_images(
+  image = tf.image.resize(
       image,
       image_shape,
-      method=tf.image.ResizeMethod.NEAREST_NEIGHBOR,
-      align_corners=True)
+      method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
   return tf.cast(tf.squeeze(image, 0), tf.uint8)
 
 
@@ -494,7 +493,7 @@ def draw_bounding_boxes_on_image_tensors(images,
     if original_image_spatial_shape is not None:
       image_and_detections[2] = _resize_original_image(image, original_shape)
 
-    image_with_boxes = tf.py_func(visualize_boxes_fn, image_and_detections[2:],
+    image_with_boxes = tf.compat.v1.py_func(visualize_boxes_fn, image_and_detections[2:],
                                   tf.uint8)
     return image_with_boxes
 
@@ -901,8 +900,8 @@ def add_cdf_image_summary(values, name):
     image = np.fromstring(fig.canvas.tostring_rgb(), dtype='uint8').reshape(
         1, int(height), int(width), 3)
     return image
-  cdf_plot = tf.py_func(cdf_plot, [values], tf.uint8)
-  tf.summary.image(name, cdf_plot)
+  cdf_plot = tf.compat.v1.py_func(cdf_plot, [values], tf.uint8)
+  tf.compat.v1.summary.image(name, cdf_plot)
 
 
 def add_hist_image_summary(values, bins, name):
@@ -930,8 +929,8 @@ def add_hist_image_summary(values, bins, name):
         fig.canvas.tostring_rgb(), dtype='uint8').reshape(
             1, int(height), int(width), 3)
     return image
-  hist_plot = tf.py_func(hist_plot, [values, bins], tf.uint8)
-  tf.summary.image(name, hist_plot)
+  hist_plot = tf.compat.v1.py_func(hist_plot, [values, bins], tf.uint8)
+  tf.compat.v1.summary.image(name, hist_plot)
 
 
 class EvalMetricOpsVisualization(six.with_metaclass(abc.ABCMeta, object)):
@@ -1040,16 +1039,16 @@ class EvalMetricOpsVisualization(six.with_metaclass(abc.ABCMeta, object)):
     def image_summary_or_default_string(summary_name, image):
       """Returns image summaries for non-padded elements."""
       return tf.cond(
-          tf.equal(tf.size(tf.shape(image)), 4),
-          lambda: tf.summary.image(summary_name, image),
-          lambda: tf.constant(''))
+          pred=tf.equal(tf.size(input=tf.shape(input=image)), 4),
+          true_fn=lambda: tf.compat.v1.summary.image(summary_name, image),
+          false_fn=lambda: tf.constant(''))
 
     if tf.executing_eagerly():
       update_op = self.add_images([[images[0]]])
       image_tensors = get_images()
     else:
-      update_op = tf.py_func(self.add_images, [[images[0]]], [])
-      image_tensors = tf.py_func(
+      update_op = tf.compat.v1.py_func(self.add_images, [[images[0]]], [])
+      image_tensors = tf.compat.v1.py_func(
           get_images, [], [tf.uint8] * self._max_examples_to_draw)
     eval_metric_ops = {}
     for i, image in enumerate(image_tensors):
