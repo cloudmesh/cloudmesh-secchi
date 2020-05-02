@@ -18,17 +18,13 @@ Python 3.6.9
 ### Create Virtual Environment ENV3
 
 ```
-
 python -m venv ENV3
-
 ```
 
 In case of multiple version of python, use command 
 
 ```
-
 py -3.6 -m venv ENV3
-
 ```
 
 This command will create a new ENV3 environment using python 3.6 version.
@@ -42,26 +38,20 @@ Command to activate
 For Windows:
 
 ```
-
 ENV3/Scripts/activate.bat
-
 ```
 
 For Linux:
 
 ```
-
 source ENV3/bin/activate
-
 ```
 
 Create a cm folder 
 
 ```
-
 mkdir cm
 cd cm
-
 ```
 
 Run these commands to install cloudmesh-seechi
@@ -79,7 +69,6 @@ Once installation is complete, run help command to check if installation is succ
 
 ```
 cms secchi help
-
 ```
 
 ## Command Line Execution
