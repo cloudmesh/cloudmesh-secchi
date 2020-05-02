@@ -1,71 +1,91 @@
-# To run model
+# Objective
+
+This is trained model to identify a secchi disk from a given video. This model 
+is built on Tensorflow 2.0 using python version 3.6.9.
+
+This program takes a video <valid format> as in input and detects secchi disc.
+It generates an image file 'secchi.png' to mark image detection frame by frame. 
 
 ## Prerequisite
 
-* Python 3.6
-* Tensorflow 1.14
-* Pillow
-* lxml
-* matplotlib
-* opencv
-* cython
+python 3.6.9
 
 ## Installation
 
-Activate python virtual environment before installation.
+### Create Virtual Environment ENV3
+
+```
+
+python -m venv ENV3
+
+```
+
+In case of multiple version of python, use command 
+
+```
+
+py -3.6 -m venv ENV3
+
+```
+
+This command will create a new ENV3 environment using python 3.6 version.
+
+
+### Installation of cloudmesh-secchi
+
+Start from home directory. Activate python virtual environment before installation. 
+Command to activate
+
+For Windows:
+
+```
+
+ENV3/Scripts/activate.bat
+
+```
+
+For Linux:
+
+```
+
+source ENV3/bin/activate
+
+```
+
+Create a cm folder 
+
+```
+
+mkdir cm
+cd cm
+
+```
+
+Run these commands to install cloudmesh-seechi
 
 ```
 pip install cloudmesh-cmd5
 pip install cloudmesh-sys
 cms sys command generate secchi
 git pull https://github.com/cloudmesh/cloudmesh-secchi.git
+cd cloudmesh-secchi
+pip install -e .
 
 ```
 
-## Command line execution
+Once installation is complete, run help command to check if installation is successful.
 
-### Training an image dataset
-
-#### Image Dataset and annotation file
-
-* Create annotaion xml file for all the images using labelImg. Image file name 
-  and corresponding xml file name must be same.
-
-* All image and xml file must be placed in one folder.
-
-#### Partition dataset into test and train
-
-* Run command to split dataset into test and train. Default ration is 10%.
-
-```   
-
-# cms secchi create partitiondataset [INPUT_IMAGE_DIR] [--ratio=0.2]
-cms secchi partitiondataset '~\Desktop\Img' --ratio=0.2
+```
+cms secchi help
 
 ```
 
-#### Prepare training data
+## Command Line Execution
 
-* This step converts image file and  xml files into TFRecord which is uses in 
-  training.
-
-
-```
-
-secchi prep --training
-
-```
-
-#### Download pretrained model(In Progress)
+### Commands To Run Prediction
 
 
-#### Start model training(In Progress) 
-
-
-### Prediction
-
-
-#### Upload video file to src folder through cms command for prediction
+#### Upload video file through cms command
 
 ```
 cms secchi upload '~/Desktop/file.mp4' --predict
@@ -77,7 +97,7 @@ cms secchi upload '~/Desktop/file.mp4' --predict
 cms secchi run --predict
 ```
 
-To quit press 'q'
+To quit video, press 'q'
 
 #### Get the graph output
 
