@@ -1,5 +1,5 @@
 ![TensorFlow 2 Not Supported](https://img.shields.io/badge/TensorFlow%20Requirement-2.0-brightgreen)
-![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)
+![Python 3.6](https://img.shields.io/badge/python-3.6-brightgreen.svg)
 
 # Objective
 
