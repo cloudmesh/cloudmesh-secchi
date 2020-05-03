@@ -150,9 +150,10 @@ class Video:
                     os.remove(os.path.join(self.dest, file))
                     print(f"{file} is removed")
         else:
+
             os.remove(os.path.join(self.dest,file))
             print(f"{file} is removed.")
-
+            
     def listsVideo(self):
 
         os.chdir(self.dest)

@@ -101,6 +101,12 @@ cms secchi upload '~/Desktop/file.mp4' --predict --setfilelimit=800
 cms secchi remove --predict
 ```
 
+  Or we can sepcify specific file to be removed.
+
+```
+cms secchi remove 'filename.mp4' --predict
+```  
+
 #### Run predict through cms command
 
 ```
