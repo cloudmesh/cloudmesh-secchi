@@ -3,6 +3,14 @@
 
 # Objective
 
+The measurement of turbidity is a key test of water quality. In this study, 
+turbidity of lakes, in and around Indianapolis, is measured by suspending a 
+secchi disc in water and get the reading from the measuring tape of the depth
+where disc almost disappears in water. 
+
+The activity of suspending the disc in water and lower it until it disappears is
+captured in video format. This video format is the input of this program.
+
 This is trained model to identify a secchi disk from a given video. This model 
 is built on Tensorflow 2.0 using python version 3.6.9.
 
@@ -11,7 +19,10 @@ It generates an image file 'secchi.png' to mark image detection frame by frame.
 
 ## Prerequisite
 
-Python 3.6.9
+* Python 3.6.9
+* Tensorflow 2.0.0b1 - CPU version : This is included as a dependencies in 
+  cloudmesh-secchi and gets installed itself when cloudmesh-secchi is installed. 
+  No seperate installation is required. 
 
 ## Installation
 
@@ -64,6 +75,9 @@ cd cloudmesh-secchi
 pip install -e .
 
 ```
+
+Installation of cloudmesh-secchi takes care of installation of all dependencies including
+tensorflow 2.0. No seperate installation of tensorflow is required.
 
 Once installation is complete, run help command to check if installation is successful.
 
