@@ -213,7 +213,7 @@ class SecchiCommand(PluginCommand):
             p = Path(os.path.abspath(__file__))
             path = p.parent.parent.parent.parent
             print(path)
-            file = os.path.join(path, 'secchi.png')
+            file = os.path.join(path, 'image/secchi.png')
 
             if os.path.exists(file):
                 os.system(file)
