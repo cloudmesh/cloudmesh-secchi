@@ -24,6 +24,7 @@ import tensorflow as tf
 import sys
 import matplotlib.pyplot as plt
 from cloudmesh.common.util import path_expand
+from pathlib import Path
 
 
 # This is needed since the notebook is stored in the object_detection folder.
@@ -188,17 +189,19 @@ class Predict:
         # plt.xlabel("Time Stamp in seconds")
         # plt.ylabel(" Prediction Score %")
         # plt.savefig("mygraph.png")
+        p = Path(os.path.abspath(__file__))
+        path = p.parent.parent.parent.parent
 
-
+        if os.path.isfile(f"{path}/image/sacchi.png"):
+            print("File Exists: Deleting....")
+            os.remove("sacchi.png")
+            print(os.path.isfile(f"{path}/image/sacchi.png"))
+        
         fig, ax = plt.subplots()
         plt.plot(self.TIME_STAMP[::25], self.SCORES[::25],marker=".")
         ax.set(title='Secchi Disk Detection', xlabel='Time Stamp in second', ylabel='Prediction Score %')
-        if os.path.isfile("sacchi.png"):
-            print("File Exists: Deleting....")
-            os.remove("sacchi.png")
-            print(os.path.isfile("sacchi.png"))
         
-        fig.savefig('secchi.png', transparent=False, dpi=80, bbox_inches="tight")
+        fig.savefig(f'{path}/image/secchi.png', transparent=False, dpi=80, bbox_inches="tight")
         #     delete file
         #     dave file
         print("File Saved")
