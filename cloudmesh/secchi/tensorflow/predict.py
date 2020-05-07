@@ -192,7 +192,7 @@ class Predict:
 
         fig, ax = plt.subplots()
         plt.plot(self.TIME_STAMP[::25], self.SCORES[::25],marker=".")
-        ax.set(title='Sacchi Disk Detection', xlabel='Time Stamp in second', ylabel='Prediction Score %')
+        ax.set(title='Secchi Disk Detection', xlabel='Time Stamp in second', ylabel='Prediction Score %')
         if os.path.isfile("sacchi.png"):
             print("File Exists: Deleting....")
             os.remove("sacchi.png")
