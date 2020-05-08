@@ -17,21 +17,21 @@ from tensorflow which are used to perform object detection on video.
 
 ## Details about prediction
 
-### Tensorflow Utilities (include source)
+### Tensorflow Utilities ([link](https://github.com/tensorflow/models/tree/master/research/object_detection))
 
 /annotations/label_map.pbtxt - This file is updated for disc item. Since it is
 just one item which needs to be detected, this file has one item as disc.
 
 /config/ssd_inception_v2_coco.config - This is the config file for fine tuning
 training and prediction. This file provides training configurations e.g. batch 
-size, optimizer, Feature extractor, box predictoe, loss etc.(source) 
+size, optimizer, Feature extractor, box predictoe, loss etc.
 
 /trained-inference-graphs - This directory contains trained model files which 
 are used to run prediction. These are checkpoint files created after training
 is completed.
 
 /utils_tf - This directory contains object detection utilities required to run
-prediction. (source) 
+prediction. 
 
 ### 
 
@@ -210,3 +210,7 @@ files to evaluate the performance of the model.
 Once we acieve desired loss, we can choose the latest checkpoint file and
 use it in prediction.
 
+References:
+* [Tensorflow Object Detection Model](https://github.com/tensorflow/models/tree/master/research/object_detection)
+* [Training Custom Object Detector](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html)
+* [OpenCV- Getting Started With Video](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html)
