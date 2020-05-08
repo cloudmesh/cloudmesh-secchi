@@ -1,5 +1,5 @@
 ![TensorFlow 2 Not Supported](https://img.shields.io/badge/TensorFlow%20Requirement-2.0-brightgreen)
-![Python 3.6](https://img.shields.io/badge/Python-3.6-brightgreen.svg)
+![Python 3.7](https://img.shields.io/badge/Python-3.7-brightgreen.svg)
 
 # Objective
 
@@ -39,7 +39,7 @@ Usage:
 
 ## Prerequisite
 
-* Python 3.6.9
+* Python 3.7.7
 * Tensorflow 2.0.0b1 - CPU version : This is included as a dependencies in 
   cloudmesh-secchi and gets installed itself when cloudmesh-secchi is installed. 
   No seperate installation is required. 
