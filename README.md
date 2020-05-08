@@ -12,7 +12,7 @@ The activity of suspending the disc in water and lower it until it disappears is
 captured in video format. This video format is the input of this program.
 
 This is trained model to identify a secchi disk from a given video. This model 
-is built on Tensorflow 2.0 using python version 3.6.9.
+is built on Tensorflow 2.0 using python version 3.7.7.
 
 This program takes a video im MP4 or AVI format as in input and detects secchi disc.
 It generates an image file 'secchi.png' to mark image detection frame by frame. 
@@ -58,7 +58,7 @@ In case of multiple version of python, use command
 py -3.7 -m venv ENV3
 ```
 
-This command will create a new ENV3 environment using python 3.6 version.
+This command will create a new ENV3 environment using python 3.7 version.
 
 
 ### Installation of cloudmesh-secchi
@@ -120,7 +120,7 @@ cms secchi upload '~/Desktop/file.mp4' --predict
 ```
 
 This command fails if filesize of video is more than 500MB. 
-If fails, [--setfilelimit=100] can be used to increase file size limit and upload
+If fails, [--setfilelimit=800] can be used to increase file size limit(in MB) and upload
 video.
 
 ```
