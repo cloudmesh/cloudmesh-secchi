@@ -17,6 +17,26 @@ is built on Tensorflow 2.0 using python version 3.6.9.
 This program takes a video im MP4 or AVI format as in input and detects secchi disc.
 It generates an image file 'secchi.png' to mark image detection frame by frame. 
 
+Usage:
+
+```
+Usage:
+                secchi upload [FILE] [--training] [--validate] [--predict][--setfilelimit=100]
+                secchi run [--setup] [--predict] [--training][--resize=0.5]
+                secchi remove [VIDEO][--training][--validate][--predict]
+                secchi show graph 
+                secchi list file [--predict] [--training]
+                secchi create partitiondataset [INPUTDIR] [--ratio=0.2]
+                secchi delete partitiondataset
+                secchi prep [--training]
+                secchi set [--predict] [--filesize=100]
+
+```
+
+* [--training][--validate] and partitiondataset options are next phase implementation
+  and are not implemented in this version.
+* To train new model, instructions are provided in 'Project-Details.md'.
+
 ## Prerequisite
 
 * Python 3.6.9

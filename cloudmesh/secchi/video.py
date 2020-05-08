@@ -63,8 +63,8 @@ class Video:
 
         scaling_factorx = 0.5
         scaling_factory = 0.5
-        input_archive = 'input_archive/'
-        path = 'output/image/'
+        input_archive = 'input_archive/'    # Provide input directory here.
+        path = 'output/image/'              # Provide output directory here.
         files = os.listdir(input_dir)
 
         for file in files:
