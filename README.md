@@ -171,3 +171,9 @@ Example of prediction video and graph is shown:
 ![Output Graph](image/secchigraph.png) 
 
 ![Predictor Output Image](image/Predictor_Image.png)
+
+References:
+
+* [Tensorflow Object Detection Model](https://github.com/tensorflow/models/tree/master/research/object_detection)
+* [Training Custom Object Detector](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html)
+* [OpenCV- Getting Started With Video](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html)
