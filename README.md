@@ -55,7 +55,7 @@ python -m venv ENV3
 In case of multiple version of python, use command 
 
 ```
-py -3.6 -m venv ENV3
+py -3.7 -m venv ENV3
 ```
 
 This command will create a new ENV3 environment using python 3.6 version.
