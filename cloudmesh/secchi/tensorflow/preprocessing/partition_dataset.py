@@ -66,7 +66,7 @@ def iterate_dir(source, dest, ratio, copy_xml = True):
                      os.path.join(train_dir, xml_filename))
 
 
-class PartitionDataset():
+class PartitionDataset:
 
     outputDir = path_expand('~/.cloudmesh/secchi/images')
 

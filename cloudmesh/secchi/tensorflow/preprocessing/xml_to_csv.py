@@ -42,7 +42,7 @@ def xml_to_csv(path):
     return xml_df
 
 
-class XmlToCSV():
+class XmlToCSV:
     inputDir_train = path_expand('~/.cloudmesh/secchi/images/train')
     inputDir_test = path_expand('~/.cloudmesh/secchi/images/test')
 

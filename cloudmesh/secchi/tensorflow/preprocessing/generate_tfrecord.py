@@ -12,7 +12,7 @@ from collections import namedtuple, OrderedDict
 from cloudmesh.common.util import path_expand
 
 
-class GenTF():
+class GenTF:
 
     def __init__(self, str):
 

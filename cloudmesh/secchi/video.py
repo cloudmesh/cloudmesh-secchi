@@ -76,7 +76,7 @@ class Video:
             cap = cv2.VideoCapture(os.path.join(input_dir, file))
 
             i = 0
-            while (True):
+            while True:
                 # Capture frame-by-frame
                 ret, frame = cap.read()
 

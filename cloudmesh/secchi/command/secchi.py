@@ -109,7 +109,7 @@ class SecchiCommand(PluginCommand):
                 else:
                     v = Video()
 
-                    if(v.validateFileFormat(file, 'predict')):
+                    if v.validateFileFormat(file, 'predict'):
                         # valid format
                         print("format is valid")
                         v.upload(file)
@@ -156,7 +156,7 @@ class SecchiCommand(PluginCommand):
             v = Video()
             file = v.getVideoFile()
             
-            if(file is not None):
+            if file is not None:
                 from cloudmesh.secchi.tensorflow.predict import Predict
                 if arguments.resize:            
                     resize_scale = float(arguments.resize)

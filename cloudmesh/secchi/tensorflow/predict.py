@@ -117,7 +117,7 @@ class Predict:
         # Open video file
         video = cv2.VideoCapture(PATH_TO_VIDEO)
 
-        while(video.isOpened()):
+        while video.isOpened():
 
             # Acquire frame and expand frame dimensions to have shape: [1, None, None, 3]
             # i.e. a single-column array, where each item in the column has the pixel RGB value
