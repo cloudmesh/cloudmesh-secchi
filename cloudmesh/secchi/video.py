@@ -23,19 +23,30 @@ class Video:
         # print("dest Path:", self.dest)
 
     def train(self, video):
+        """
+        TODO: not yet iplemented
 
+        @param video:
+        @type video:
+        """
         raise NotImplementedError
 
         # pop up LabelImag
         os.sysmem()
 
     def analyse(self):
+        """
+        TODO: not yet implemented
+        """
         raise NotImplementedError
 
     def getValidFormat(self):
         return self.valid_extn
 
     def upload(self, filepath=None, kind="analyse"):
+        """
+        uploads a file so the code can access it
+        """
         file = os.path.basename(filepath)
         try:
             shutil.copy(filepath, self.dest)
@@ -43,21 +54,39 @@ class Video:
             print("File is not found")
 
     def list(self, name=None):
-        # lists videos and tells us info about them in json format
-        # is training
-        # images
-        # size
-        # non = all, if name only that
-        # use glob.glob in teh des dir
+        """
+        TODO: not yet implemented
+
+        lists videos and tells us info about them in json format
+        is training
+        images
+        size
+        non = all, if name only that
+        use glob.glob in teh des dir
 
         # list all files in input folder
+
+        @param name:
+        @type name:
+        """
 
         raise NotImplementedError
 
     def download(self, url, name=None):
-        # python requests to download
-        # put the file into dest under name, if name is not specified put it in
-        # what if file already exists?
+        """
+        TODO: not yet implemented
+
+        requests to download the file from the URL
+        put the file into dest under name, if name is not specified put it in
+        what if file already exists?
+
+        we shoudl get this from cloudmesh
+
+        @param url:
+        @type url:
+        @param name:
+        @type name:
+        """
         raise NotImplementedError
 
     def imageCapture(self, input_dir):
@@ -111,6 +140,11 @@ class Video:
             shutil.move(input_dir + file, dest)
 
     def validateFileFormat(self, file, str='notPredict'):
+        """
+        checks if the file format is valid
+
+        @rtype: object
+        """
         filename = os.path.basename(file)
         if str == 'predict':
 

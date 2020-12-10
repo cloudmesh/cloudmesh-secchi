@@ -35,13 +35,13 @@ class SecchiCommand(PluginCommand):
 
           Arguments:
               upload   To upload training, validation, prediction files.
-              list    To list out all the files
-              input  input
-              delete  cc
-              server  cc
-              start  cc
-              stop  cc
-              FILE  a file or directory name to upload
+              list     To list out all the files
+              input    input
+              delete   cc
+              server   cc
+              start    cc
+              stop     cc
+              FILE     a file or directory name to upload
 
           Options:
               --training    command is used for training
