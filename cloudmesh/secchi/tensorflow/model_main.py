@@ -14,16 +14,13 @@
 # ==============================================================================
 """Binary to run train and evaluation on object detection model."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 from absl import flags
 
 import tensorflow as tf
 
 from object_detection import model_hparams
 from object_detection import model_lib
+import os
 
 flags.DEFINE_string(
     'model_dir', None, 'Path to output model directory '
@@ -61,9 +58,11 @@ def train_run():
 
 
 def main(unused_argv):
+    cwd = os.getcwd()
+
     FLAGS.model_dir = '~/.cloudmesh/secchi/training'
-    FLAGS.pipeline_config_path = 'C:/Users/dmall/cm/cloudmesh-secchi/cloudmesh/secchi/tensorflow/training/ssd_inception_v2_coco.config'
-    
+    FLAGS.pipeline_config_path = f'{cwd}/secchi/tensorflow/training/ssd_inception_v2_coco.config'
+
     # flags.mark_flag_as_required('model_dir')
     # flags.mark_flag_as_required('pipeline_config_path')
     config = tf.estimator.RunConfig(model_dir=FLAGS.model_dir)
