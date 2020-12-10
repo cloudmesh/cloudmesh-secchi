@@ -23,7 +23,7 @@ scientific experiments.
 From a number of training videos we identify in which frame the Secchi disk is still visible.
 
 
-<img src="images/Predictor_Image.png" width="%50" />
+<img src="images/Predictor_Image.png" width="200" />
 
 **Fig 1**: Predictor Output Image
 
