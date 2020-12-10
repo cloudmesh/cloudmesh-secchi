@@ -22,6 +22,12 @@ scientific experiments.
 
 From a number of training videos we identify in which frame the Secchi disk is still visible.
 
+
+<img src="images/Predictor_Image.png" width="%50" />
+
+**Fig 1**: Predictor Output Image
+
+
 ## Prerequisits
 
 This program depends on and tensorflow 2.0 and Python 3.8  or whatever version of Python tensorflow is supported on. 
@@ -206,7 +212,6 @@ Example of prediction video and graph is shown:
 
 ![Output Graph](image/secchigraph.png) 
 
-![Predictor Output Image](image/Predictor_Image.png)
 
 References:
 
