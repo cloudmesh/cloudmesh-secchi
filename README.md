@@ -47,8 +47,21 @@ do not interfere with other Python versions.
 
 ### Ubuntu 20.04
 
+We provide two easy makefile targets to deploy the code
+
+```
+make ubuntu
+make deploy
+```
+
+These to commands do the following, but are convenient 
+so you do not have to retype them. Please note that it does 
+erase the directory `~/ENV38`.
+
+
 ```
 sudo apt-get install python3-dev  python3-pip -y
+rm -rf ~/ENV38
 python3.8 -m venv ~/ENV38
 source ~/ENV38/bin/activate
 pip install -U pip numpy wheel
