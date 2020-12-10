@@ -23,22 +23,27 @@ scientific experiments.
 From a number of training videos we identify in which frame the Secchi disk is still visible.
 
 
-<img src="images/Predictor_Image.png" width="200" />
+![**Fig 1**: Predictor Output Image](images/Predictor_Image.png)
 
 **Fig 1**: Predictor Output Image
 
 
 ## Prerequisits
 
-This program depends on and tensorflow 2.0 and Python 3.8  or whatever version of Python tensorflow is supported on. 
-It was last tested with Python version 3.7.7.  
+* Python 3.7.7, 3.9
+* Tensorflow 2.0.0b1 - CPU version : This is included as a dependencies in 
+  cloudmesh-secchi and gets installed itself when cloudmesh-secchi is installed. 
+  No seperate installation is required. 
 
-The up to date instructions for various operating systems are provided at 
+This program depends on and tensorflow 2.0 and Python 3.8  or whatever version of Python tensorflow is supported on. 
+It was last tested with Python version 3.7.7. The up to date instructions for various operating systems are provided at 
 
 * <https://www.tensorflow.org/install>
 
 Here we give for some operating systems a quickstart that works for us. We use a Python venv to assure we 
 do not interfere with other Python versions.
+
+
 
 ### Ubuntu 20.04
 
@@ -50,16 +55,16 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### macOS
-
-TBD 
-
-
-
 ## cms secchi command
 
+The manual page of the command can be invoked from the cloudmesh shell with 
 
-Usage:
+```
+cms secci help
+```
+
+You will see the following manual page
+
 
 ```
 Usage:
@@ -79,12 +84,6 @@ Usage:
   and are not implemented in this version.
 * To train new model, instructions are provided in 'Project-Details.md'.
 
-## Prerequisite
-
-* Python 3.7.7, 3.9
-* Tensorflow 2.0.0b1 - CPU version : This is included as a dependencies in 
-  cloudmesh-secchi and gets installed itself when cloudmesh-secchi is installed. 
-  No seperate installation is required. 
 
 ## Installation
 
@@ -149,7 +148,11 @@ cms secchi help
 
 ## Command Line Execution
 
+The prediction and training can be controlled with a simple command line tools
+
 ### Commands To Run Prediction
+
+We have developed a number of commands that simplify the prediction process.
 
 #### Upload and delete video file through cms command. Max file size is 500MB.
 
@@ -208,9 +211,12 @@ This graph is saved under root folder as 'secchi.png'.
 
 #### Predict Screen and Graph
 
-Example of prediction video and graph is shown:
+Example of prediction video and graph is shown in Fig. 1. The reason for the image disappearing in the middle is 
+that it drifted out of the view of the camera.
 
 ![Output Graph](images/secchigraph.png) 
+
+**Fig 2**: Detection Probability to identify the Secchi imaage (1.0 is 100%)
 
 
 References:
