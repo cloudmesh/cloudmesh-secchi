@@ -29,17 +29,23 @@ def readfile(filename):
 # add minimum requirements here
 #
 requiers = """
-psutil
-pygments
-pandas
-wheel
-tensorflow==2.0.0b1
-pillow
-lxml
-matplotlib
-opencv-python
-cython
+cloudmesh-cmd5
+cloudmesh-common
+cloudmesh-sys
+tensorflow
 """.split("\n")
+
+# psutil
+# pygments
+# pandas
+# wheel
+# tensorflow==2.0.0b1
+# pillow
+# lxml
+# matplotlib
+# opencv-python
+# cython
+
 
 # dependency_links = ['http://github.com/nicolaiarocci/eve.git@develop']
 

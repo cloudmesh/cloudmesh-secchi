@@ -14,6 +14,21 @@ all: install
 install:
 	pip install -e .
 
+ubuntu:
+	sudo apt-get install python3-dev  python3-pip -y
+	rm -rf ~/ENV38
+	python3.8 -m venv ~/ENV38
+	@echo
+	@echo "to activate python3.8 execute:"
+	@echo
+	@echo "source ~/ENV38/bin/activate"
+	@echo
+
+deploy:
+	pip install -U pip numpy wheel
+	pip install -U keras_preprocessing --no-deps
+	pip install -r requirements.txt
+
 source:
 	cd ../cloudmesh.cmd5; make source
 	$(call banner, "Install cloudmesh-{package}")

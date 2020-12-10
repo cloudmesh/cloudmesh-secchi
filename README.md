@@ -48,10 +48,11 @@ do not interfere with other Python versions.
 ### Ubuntu 20.04
 
 ```
-sudo apt-get install python3-dev  -y
+sudo apt-get install python3-dev  python3-pip -y
 python3.8 -m venv ~/ENV38
 source ~/ENV38/bin/activate
-pip install --upgrade pip
+pip install -U pip numpy wheel
+pip install -U --user keras_preprocessing --no-deps
 pip install -r requirements.txt
 ```
 
