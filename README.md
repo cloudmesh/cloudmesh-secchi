@@ -210,7 +210,7 @@ This graph is saved under root folder as 'secchi.png'.
 
 Example of prediction video and graph is shown:
 
-![Output Graph](image/secchigraph.png) 
+![Output Graph](images/secchigraph.png) 
 
 
 References:
