@@ -1,15 +1,16 @@
+import glob
 import os
-import cv2
 import shutil
 from pathlib import Path
-from cloudmesh.common.util import path_expand
-import glob
+
+import cv2
 from cloudmesh.common.Shell import Shell
+from cloudmesh.common.util import path_expand
+
 
 class Video:
-
-#Video.__filename__
-# directory = os.path.dirname(Vido.__filename__
+    # Video.__filename__
+    # directory = os.path.dirname(Vido.__filename__
 
     valid_extn = ["MP4", "AVI"]
 
@@ -59,12 +60,12 @@ class Video:
         # what if file already exists?
         raise NotImplementedError
 
-    def imageCapture(self,input_dir):
+    def imageCapture(self, input_dir):
 
         scaling_factorx = 0.5
         scaling_factory = 0.5
-        input_archive = 'input_archive/'    # Provide input directory here.
-        path = 'output/image/'              # Provide output directory here.
+        input_archive = 'input_archive/'  # Provide input directory here.
+        path = 'output/image/'  # Provide output directory here.
         files = os.listdir(input_dir)
 
         for file in files:
@@ -136,13 +137,13 @@ class Video:
                 print(file)
                 return file
 
-        #print("No video file exists")
+        # print("No video file exists")
         return None
 
-    def removeFile(self,file=None):
+    def removeFile(self, file=None):
 
         if file is None:
-            #remove all video file
+            # remove all video file
             files = os.listdir(self.dest)
             for file in files:
                 extn = file.split('.')[-1].upper()
@@ -151,9 +152,9 @@ class Video:
                     print(f"{file} is removed")
         else:
 
-            os.remove(os.path.join(self.dest,file))
+            os.remove(os.path.join(self.dest, file))
             print(f"{file} is removed.")
-            
+
     def listsVideo(self):
 
         os.chdir(self.dest)
@@ -162,10 +163,8 @@ class Video:
                 print(file)
 
 
-if __name__== "__main__":
-    #print(__import__("Video"))
-    v= Video()
-    #v.upload()
+if __name__ == "__main__":
+    # print(__import__("Video"))
+    v = Video()
+    # v.upload()
     v.getVideoFile()
-
-

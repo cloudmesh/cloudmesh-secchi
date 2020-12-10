@@ -1,4 +1,3 @@
-
 from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
@@ -8,13 +7,13 @@ import io
 import pandas as pd
 import tensorflow as tf
 import sys
+
 sys.path.append("../../models/research")
 
 from PIL import Image
 from cloudmesh.secchi.tensorflow.utils_tf import dataset_util
 from collections import namedtuple, OrderedDict
 from cloudmesh.common.util import path_expand
-
 
 
 class GenTF():
@@ -34,7 +33,7 @@ class GenTF():
     def create(self):
 
         writer = tf.io.TFRecordWriter(self.output_path)
-        print("csv_input: ",self.csv_input)
+        print("csv_input: ", self.csv_input)
         examples = pd.read_csv(self.csv_input)
         grouped = self.split(examples, 'filename')
         for group in grouped:
@@ -44,20 +43,17 @@ class GenTF():
         writer.close()
         print('Successfully created the TFRecords: {}'.format(self.output_path))
 
-
-    def class_text_to_int(self,row_label):
+    def class_text_to_int(self, row_label):
 
         if row_label == self.label:  # 'ship':
             return 1
         else:
             None
 
-
     def split(self, df, group):
         data = namedtuple('data', ['filename', 'object'])
         gb = df.groupby(group)
         return [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]
-
 
     def create_tf_example(self, group, path):
         with tf.io.gfile.GFile(os.path.join(path, '{}'.format(group.filename)), 'rb') as fid:
