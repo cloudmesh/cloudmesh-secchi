@@ -1,35 +1,71 @@
-![TensorFlow 2 Not Supported](https://img.shields.io/badge/TensorFlow%20Requirement-2.0-brightgreen)
-![Python 3.7](https://img.shields.io/badge/Python-3.7-brightgreen.svg)
+# cloudmesh-secchi
 
-# Objective
+![TensorFlow 2](https://img.shields.io/badge/TensorFlow%20Requirement-2.0-brightgreen)
+[![image](https://img.shields.io/pypi/v/cloudmesh-common.svg)](https://pypi.org/project/cloudmesh-common/)
+[![Python](https://img.shields.io/pypi/pyversions/cloudmesh-common.svg)](https://pypi.python.org/pypi/cloudmesh-common)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/cloudmesh/cloudmesh-common/blob/main/LICENSE)
+[![Format](https://img.shields.io/pypi/format/cloudmesh-common.svg)](https://pypi.python.org/pypi/cloudmesh-common)
+[![Status](https://img.shields.io/pypi/status/cloudmesh-common.svg)](https://pypi.python.org/pypi/cloudmesh-common)
+[![Travis](https://travis-ci.com/cloudmesh/cloudmesh-common.svg?branch=main)](https://travis-ci.com/cloudmesh/cloudmesh-common)
 
-The measurement of turbidity is a key test of water quality. In this study, 
+
+The measurement of turbidity is a key test of water quality. As part of a scientific experiment the 
 turbidity of lakes, in and around Indianapolis, is measured by suspending a 
-secchi disc in water and get the reading from the measuring tape of the depth
-where disc almost disappears in water. 
-
-The activity of suspending the disc in water and lower it until it disappears is
-captured in video format. This video format is the input of this program.
-
-This is trained model to identify a secchi disk from a given video. This model 
-is built on Tensorflow 2.0 using python version 3.7.7.
-
+Secchi disc in water and get the reading from the measuring tape of the depth
+where disc almost disappears in water.  The activity of suspending the disc in water and lower it 
+until it disappears is  captured in video format. This video is the input of this program.
 This program takes a video im MP4 or AVI format as in input and detects secchi disc.
 It generates an image file 'secchi.png' to mark image detection frame by frame. 
+
+This is trained model is then used to identify a Secchi disk from a given video taken as part of repeated 
+scientific experiments. 
+
+From a number of training videos we identify in which frame the Secchi disk is still visible.
+
+## Prerequisits
+
+This program depends on and tensorflow 2.0 and Python 3.8  or whatever version of Python tensorflow is supported on. 
+It was last tested with Python version 3.7.7.  
+
+The up to date instructions for various operating systems are provided at 
+
+* <https://www.tensorflow.org/install>
+
+Here we give for some operating systems a quickstart that works for us. We use a Python venv to assure we 
+do not interfere with other Python versions.
+
+### Ubuntu 20.04
+
+```
+sudo apt-get install python3-dev  -y
+python3.8 -m venv ~/ENV38
+source ~/ENV38/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### macOS
+
+TBD 
+
+
+
+## cms secchi command
+
 
 Usage:
 
 ```
 Usage:
-                secchi upload [FILE] [--training] [--validate] [--predict][--setfilelimit=100]
-                secchi run [--setup] [--predict] [--training][--resize=0.5]
-                secchi remove [VIDEO][--training][--validate][--predict]
-                secchi show graph 
-                secchi list file [--predict] [--training]
-                secchi create partitiondataset [INPUTDIR] [--ratio=0.2]
-                secchi delete partitiondataset
-                secchi prep [--training]
-                secchi set [--predict] [--filesize=100]
+  secchi upload [FILE] [--training] [--validate] [--predict][--setfilelimit=100]
+  secchi run [--setup] [--predict] [--training][--resize=0.5]
+  secchi remove [VIDEO][--training][--validate][--predict]
+  secchi show graph 
+  secchi list file [--predict] [--training]
+  secchi create partitiondataset [INPUTDIR] [--ratio=0.2]
+  secchi delete partitiondataset
+  secchi prep [--training]
+  secchi set [--predict] [--filesize=100]
 
 ```
 
@@ -39,7 +75,7 @@ Usage:
 
 ## Prerequisite
 
-* Python 3.7.7
+* Python 3.7.7, 3.9
 * Tensorflow 2.0.0b1 - CPU version : This is included as a dependencies in 
   cloudmesh-secchi and gets installed itself when cloudmesh-secchi is installed. 
   No seperate installation is required. 
