@@ -74,8 +74,8 @@ class SecchiCommand(PluginCommand):
         #           MODEL PREDICTION CODE                          #
         ############################################################
 
-        #file_size = 500
-        
+        # file_size = 500
+
         if arguments.upload and arguments.predict:
 
             # validate extension and file size. Max size=125 MB
@@ -85,13 +85,13 @@ class SecchiCommand(PluginCommand):
             if arguments.setfilelimit:
                 file_size = int(arguments.setfilelimit)
             else:
-                file_size = 500 # Default size limit
+                file_size = 500  # Default size limit
 
             try:
                 size = os.path.getsize(file) / (1024 * 1024)
 
                 if size > file_size:
-                    
+
                     Console.error(f"Size limit {file_size}MB exceeds. End upload")
                     print("")
                     print("********************")
@@ -104,7 +104,7 @@ class SecchiCommand(PluginCommand):
 
                         This command will set file size - 800MB.
                         """
-                        )
+                    )
                 # validate extension:
                 else:
                     v = Video()
@@ -133,10 +133,8 @@ class SecchiCommand(PluginCommand):
                         formats = v.getValidFormat()
                         print(f"Valid formats: {formats}")
 
-
             except FileNotFoundError:
                 Console.error(f"File is not found at {file}. Please validate and try again.")
-
 
         elif arguments.list and arguments.file:
             if arguments.predict:
@@ -145,24 +143,24 @@ class SecchiCommand(PluginCommand):
                 v.listsVideo()
             elif arguments.training:
                 banner("List all uploaded file for training")
-            
+
             elif arguments.validate:
                 banner("List all uploaded file for validation")
 
         elif arguments.run and arguments.predict:
-            
+
             banner("Run Prediction")
             # check if video file exists in src location
             v = Video()
             file = v.getVideoFile()
-            
+
             if file is not None:
                 from cloudmesh.secchi.tensorflow.predict import Predict
-                if arguments.resize:            
+                if arguments.resize:
                     resize_scale = float(arguments.resize)
                     p = Predict(file, resize_scale)
 
-                else:    
+                else:
                     p = Predict(file)
 
                 p.run()
@@ -181,9 +179,8 @@ class SecchiCommand(PluginCommand):
                     cms secchi show graph
                     """)
 
-
             else:
-                Console.error("No Video file found.")    
+                Console.error("No Video file found.")
                 print("")
                 print("********************")
                 print("Suggested command:")
@@ -219,12 +216,11 @@ class SecchiCommand(PluginCommand):
                 os.system(file)
             else:
                 print("File doesn't exists")
-              
 
         ############################################################
         #           MODEL TRAINING CODE                            #
         ############################################################
-        
+
         elif arguments.upload and arguments.training:
             # upload training image set to training folder
             print("training")
@@ -243,7 +239,7 @@ class SecchiCommand(PluginCommand):
             #
             util.download(url_protobuf, 'Proto', new_dir='Protobuf')
             util.rename('protoc-', 'Protobuf')
-            util.install()        
+            util.install()
 
         elif arguments.run and arguments.training:
             from cloudmesh.secchi.tensorflow.model_main import train_run

@@ -10,13 +10,12 @@ from cloudmesh.common.Shell import Shell
 
 
 def download(url, name, new_dir=None):
-
     p = Path(os.path.dirname(__file__))
     temp = path_expand("~/.cloudmesh/secchi")
     # os.chdir(tf_dir)
 
     files = glob.glob(f'{temp}/{name}*')
-    #os.system(f'git clone {url}')
+    # os.system(f'git clone {url}')
     # check if file already exists.
     print(f"Files: {files}")
     fileExists = False
@@ -51,7 +50,6 @@ def rename(src, trg):
 
 
 def compile():
-
     raise NotImplementedError
     # os.cwd()
     # then change it.
@@ -68,7 +66,6 @@ def update_env_variable(var, str):
 
 
 def install():
-
     current_dir = os.getcwd()
     temp_rsch = path_expand("~/.cloudmesh/secchi/model/research/")
     temp_model = path_expand("~/.cloudmesh/secchi/model/")
@@ -98,7 +95,7 @@ def install():
     Shell.pip("install", ".")
     os.chdir(current_dir)
 
-    #raise NotImplementedError
+    # raise NotImplementedError
     # 1.
     # os.cwd()
     # then change it.

@@ -1,4 +1,4 @@
-######## Video Object Detection Using Tensorflow-trained Classifier #########
+# ##### Video Object Detection Using Tensorflow-trained Classifier #########
 #
 # Author: Divyanshu Mishra
 # Date: 3/20/2020
@@ -8,13 +8,13 @@
 # It draws boxes, scores, and labels around the objects of interest in each
 # frame of the video.
 
-## Some of the code is copied from Google's example at
-## https://github.com/tensorflow/models/blob/master/research/object_detection/object_detection_tutorial.ipynb
+# # Some of the code is copied from Google's example at
+# # https://github.com/tensorflow/models/blob/master/research/object_detection/object_detection_tutorial.ipynb
 
-## and some is copied from Dat Tran's example at
-## https://github.com/datitran/object_detector_app/blob/master/object_detection_app.py
+# # and some is copied from Dat Tran's example at
+# # https://github.com/datitran/object_detector_app/blob/master/object_detection_app.py
 
-## There are modifications made to this program for requirement.
+# # There are modifications made to this program for requirement.
 
 # Import packages
 import os
@@ -26,43 +26,41 @@ import matplotlib.pyplot as plt
 from cloudmesh.common.util import path_expand
 from pathlib import Path
 
-
 # This is needed since the notebook is stored in the object_detection folder.
-#sys.path.append("")
+# sys.path.append("")
 
 # Import utilites
-#from object_detection.utils import label_map_util
-#from utils_tf import label_map_util
+# from object_detection.utils import label_map_util
+# from utils_tf import label_map_util
 from cloudmesh.secchi.tensorflow.utils_tf import label_map_util
 from cloudmesh.secchi.tensorflow.utils_tf import visualization_utils as vis_util
-#from object_detection.utils import visualization_utils as vis_util
+
+
+# from object_detection.utils import visualization_utils as vis_util
 
 
 class Predict:
     # Name of the directory containing the object detection module we're using
     MODEL_NAME = 'trained-inference-graphs'
-    #VIDEO_NAME = 'Yi-Site1.mp4'
+    # VIDEO_NAME = 'Yi-Site1.mp4'
     # Grab path to current working directory
     ABS_PATH = os.path.abspath(__file__)
     CWD_PATH = os.path.dirname(ABS_PATH)
     VIDEO_PATH = path_expand("~/.cloudmesh/secchi")
 
-
     # Path to frozen detection graph .pb file, which contains the model that is used
     # for object detection.
-    PATH_TO_CKPT = os.path.join(CWD_PATH,MODEL_NAME,'frozen_inference_graph.pb')
+    PATH_TO_CKPT = os.path.join(CWD_PATH, MODEL_NAME, 'frozen_inference_graph.pb')
     # PATH_TO_CKPT = "C:\\Users\\dmall\\cm\\TensorFlow\\workspace\\training_demo" \
     #                "\\trained-inference-graphs\\output_inference_graph_v1.pb"
     # Path to label map file
-    #PATH_TO_LABELS = os.path.join(CWD_PATH,'training','labelmap.pbtxt')
-    PATH_TO_LABELS = os.path.join(CWD_PATH,'annotations','label_map.pbtxt')
-
-
+    # PATH_TO_LABELS = os.path.join(CWD_PATH,'training','labelmap.pbtxt')
+    PATH_TO_LABELS = os.path.join(CWD_PATH, 'annotations', 'label_map.pbtxt')
 
     # Number of classes the object detector can identify
     NUM_CLASSES = 1
-    #scaling_factorx = 0.5
-    #scaling_factory = 0.5
+    # scaling_factorx = 0.5
+    # scaling_factory = 0.5
     SCORES = []
     COUNTER = 0
     TIME_STAMP = []
@@ -84,7 +82,7 @@ class Predict:
 
         # Load the Tensorflow model into memory.
         # Path to video
-        #PATH_TO_VIDEO = os.path.join(self.CWD_PATH, self.VIDEO_NAME)
+        # PATH_TO_VIDEO = os.path.join(self.CWD_PATH, self.VIDEO_NAME)
         PATH_TO_VIDEO = os.path.join(self.VIDEO_PATH, self.VIDEO_NAME)
 
         detection_graph = tf.Graph()
@@ -123,7 +121,7 @@ class Predict:
             # i.e. a single-column array, where each item in the column has the pixel RGB value
             ret, frame = video.read()
             time_stamp = video.get(cv2.CAP_PROP_POS_MSEC)
-            #print(time_stamp)
+            # print(time_stamp)
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             frame_expanded = np.expand_dims(frame_rgb, axis=0)
 
@@ -132,10 +130,10 @@ class Predict:
                 [detection_boxes, detection_scores, detection_classes, num_detections],
                 feed_dict={image_tensor: frame_expanded})
             # draw a plot
-            #print("Boxs:", boxes)
-            #print("scores:",scores[0][0])
-            #print("classes:",classes)
-            #print("num:", num)
+            # print("Boxs:", boxes)
+            # print("scores:",scores[0][0])
+            # print("classes:",classes)
+            # print("num:", num)
             # Draw the results of the detection (aka 'visulaize the results')
             vis_util.visualize_boxes_and_labels_on_image_array(
                 frame,
@@ -148,24 +146,24 @@ class Predict:
                 min_score_thresh=0.60)
 
             self.overlay_text(str(f"file:{self.VIDEO_NAME}"), frame, (100, 50), 1)
-            self.overlay_text(str(f"time: {round(time_stamp/1000,2)}s"),frame,(100,100),1)
-            self.overlay_text(str(f"Press q to exit"), frame, (800,50),1)
-            #cv2.putText(frame,str(f"TimeStamp: {round(time_stamp/1000,2)}s"),(1600,1000),cv2.FONT_HERSHEY_PLAIN,1,(0,140,255),3)
-            
-            if self.scale ==1:
-                resize = cv2.resize(frame, (2000,1800), interpolation=cv2.INTER_AREA)
+            self.overlay_text(str(f"time: {round(time_stamp / 1000, 2)}s"), frame, (100, 100), 1)
+            self.overlay_text(str(f"Press q to exit"), frame, (800, 50), 1)
+            # cv2.putText(frame,str(f"TimeStamp: {round(time_stamp/1000,2)}s"),(1600,1000),cv2.FONT_HERSHEY_PLAIN,1,(0,140,255),3)
+
+            if self.scale == 1:
+                resize = cv2.resize(frame, (2000, 1800), interpolation=cv2.INTER_AREA)
             else:
                 scaling_factorx = self.scale
                 scaling_factory = self.scale
                 resize = cv2.resize(frame, None, fx=scaling_factorx, fy=scaling_factory, interpolation=cv2.INTER_AREA)
-            
+
             # All the results have been drawn on the frame, so it's time to display it.
             # cv2.imshow('Object detector', frame)
             cv2.imshow('Object detector', resize)
             # Code for variable used in plot.
             self.SCORES.append(scores[0][0])
-            self.TIME_STAMP.append(round(time_stamp/1000, 1))
-            #self.COUNTER.append()
+            self.TIME_STAMP.append(round(time_stamp / 1000, 1))
+            # self.COUNTER.append()
 
             # Press 'q' to quit
             if cv2.waitKey(1) == ord('q'):
@@ -184,7 +182,7 @@ class Predict:
     def plot(self):
 
         print("test plot")
-        #plt.plot(range(1, len(self.SCORES), 25), self.SCORES[::25])
+        # plt.plot(range(1, len(self.SCORES), 25), self.SCORES[::25])
         # plt.plot(self.TIME_STAMP[::25], self.SCORES[::25])
         # plt.xlabel("Time Stamp in seconds")
         # plt.ylabel(" Prediction Score %")
@@ -196,19 +194,19 @@ class Predict:
             print("File Exists: Deleting....")
             os.remove("sacchi.png")
             print(os.path.isfile(f"{path}/image/sacchi.png"))
-        
+
         fig, ax = plt.subplots()
-        plt.plot(self.TIME_STAMP[::25], self.SCORES[::25],marker=".")
+        plt.plot(self.TIME_STAMP[::25], self.SCORES[::25], marker=".")
         ax.set(title='Secchi Disk Detection', xlabel='Time Stamp in second', ylabel='Prediction Score %')
-        
+
         fig.savefig(f'{path}/image/secchi.png', transparent=False, dpi=80, bbox_inches="tight")
         #     delete file
         #     dave file
         print("File Saved")
         plt.close()
-        #plt.show()
+        # plt.show()
 
-    def overlay_text(self,txt, img, ll, fscale=1):
+    def overlay_text(self, txt, img, ll, fscale=1):
         """Use OpenCV to overlay text"""
         font = cv2.FONT_HERSHEY_DUPLEX
         bottomLeftCornerOfText = ll
@@ -223,7 +221,8 @@ class Predict:
                     fontColor,
                     lineType)
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     print("predict.py")
     p = Predict('YDXJ0042.mp4')
     p.run()
